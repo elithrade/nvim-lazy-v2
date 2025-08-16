@@ -11,10 +11,10 @@ Press Space + L, and U to update plugins.
 ### Clone the repo
 
 For Windows
-`git clone git@github.com:elithrade/nvim-lazy.git $env:LOCALAPPDATA\nvim`
+`git clone git@github.com:elithrade/nvim-lazy-v2.git $env:LOCALAPPDATA\nvim`
 
 For Linux
-`git clone git@github.com:elithrade/nvim-lazy.git ~/.config/nvim`
+`git clone git@github.com:elithrade/nvim-lazy-v2.git ~/.config/nvim`
 
 Below you can find OS specific install instructions for Neovim and dependencies.
 
