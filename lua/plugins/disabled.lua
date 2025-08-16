@@ -5,8 +5,10 @@ return {
   },
   {
     "folke/snacks.nvim",
-    opts = {
-      explorer = { enabled = false },
+    keys = {
+      -- Disable keys for snacks file explorer
+      { "<leader>e", false },
+      { "<leader>E", false },
     },
   },
 }
