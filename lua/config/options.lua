@@ -11,6 +11,3 @@ if vim.fn.has("win64") == 1 then
 end
 
 vim.api.nvim_set_option_value("colorcolumn", "80", {})
-
--- Using telescope as the default picker instead of snacks
-vim.g.lazyvim_picker = "telescope"
