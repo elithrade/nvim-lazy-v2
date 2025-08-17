@@ -5,10 +5,10 @@ return {
     picker = {
       layout = {
         preset = "vertical",
-        layout = {
-          height = 0.8,
-          width = 120,
-        },
+        -- layout = {
+        --   height = 0.8,
+        --   width = 120,
+        -- },
       },
     },
     styles = {
@@ -92,10 +92,10 @@ return {
           layout = {
             preset = "vertical",
             preview = false,
-            layout = {
-              height = 0.6,
-              width = 60,
-            },
+            -- layout = {
+            --   height = 0.6,
+            --   width = 60,
+            -- },
           },
         })
       end,
