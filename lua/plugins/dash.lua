@@ -16,6 +16,7 @@ return {
         {
           section = "terminal",
           cmd = "fortune -s -n 80 | cowsay | lolcat",
+          height = 12,
           padding = 1,
           indent = 8,
         },
