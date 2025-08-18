@@ -25,7 +25,14 @@ return {
           cwd = require("lazy.core.config").options.root,
         })
       end,
-      desc = "Find [P]lugin File",
+      desc = "Find [p]lugin file",
+    },
+    {
+      "<localleader>h",
+      function()
+        Snacks.picker.help()
+      end,
+      desc = "Find [h]elp tags",
     },
     {
       "<localleader>f",
@@ -72,7 +79,7 @@ return {
       function()
         Snacks.picker.diagnostics()
       end,
-      desc = "Lists Diagnostics for all open buffers or a specific buffer",
+      desc = "Lists diagnostics for all open buffers or a specific buffer",
     },
     {
       "<localleader>s",
@@ -81,7 +88,7 @@ return {
         -- This provides similar functionality for navigating functions/variables
         Snacks.picker.lsp_symbols()
       end,
-      desc = "Lists Function names, variables from LSP symbols",
+      desc = "Lists function names, variables from LSP symbols",
     },
     {
       "<leader>e",
@@ -92,14 +99,21 @@ return {
           layout = {
             preset = "vertical",
             preview = false,
-            -- layout = {
-            --   height = 0.6,
-            --   width = 60,
-            -- },
+            layout = {
+              height = 0.6,
+              width = 60,
+            },
+          },
+          win = {
+            list = {
+              keys = {
+                ["-"] = "explorer_up",
+              },
+            },
           },
         })
       end,
-      desc = "Open File Browser with the path of the current buffer",
+      desc = "Open file browser with the path of the current buffer",
     },
   },
 }
