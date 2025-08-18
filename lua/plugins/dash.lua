@@ -15,10 +15,9 @@ return {
       sections = {
         {
           section = "terminal",
-          cmd = "fortune -s -n 80 | cowsay | lolcat",
-          height = 12,
+          cmd = "chafa ~/.config/nvim/walls/flower.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1",
+          height = 17,
           padding = 1,
-          indent = 8,
         },
         { section = "keys", gap = 1, padding = 1 },
         { section = "startup" },
