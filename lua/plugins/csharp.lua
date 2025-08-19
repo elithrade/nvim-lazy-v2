@@ -79,4 +79,15 @@ return {
       return opts
     end,
   },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nsidorenco/neotest-vstest",
+    },
+    opts = {
+      adapters = {
+        ["neotest-vstest"] = {},
+      },
+    },
+  },
 }
