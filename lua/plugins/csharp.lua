@@ -1,21 +1,25 @@
--- ~/.config/nvim/lua/plugins/csharp.lua
 return {
   -- Roslyn.nvim for C# LSP
   {
     "seblyng/roslyn.nvim",
     ft = "cs",
-    opts = {
-      config = {
-        -- Fix for noice.nvim compatibility issue
-        -- See: https://github.com/seblyng/roslyn.nvim/issues/236
-        handlers = {
-          ["workspace/_roslyn_projectNeedsRestore"] = function(err, result, ctx, config)
-            -- Return success response to satisfy LSP protocol
-            return vim.NIL
-          end,
-        },
-      },
-    },
+    config = function()
+      require("roslyn").setup({
+        -- Configuration options go here if needed
+      })
+      -- Targeted fix for noice.nvim compatibility - only affect Roslyn
+      local original_progress_handler = vim.lsp.handlers["$/progress"]
+      vim.lsp.handlers["$/progress"] = function(err, result, ctx, config)
+        -- Check if this is from Roslyn client
+        local client = vim.lsp.get_client_by_id(ctx.client_id)
+        if client and client.name == "roslyn" then
+          -- Ignore progress notifications from Roslyn to prevent noice.nvim errors
+          return
+        end
+        -- For all other LSP servers, use the original handler
+        return original_progress_handler(err, result, ctx, config)
+      end
+    end,
   },
 
   -- Disable the default omnisharp LSP
