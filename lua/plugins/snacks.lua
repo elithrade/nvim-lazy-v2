@@ -10,6 +10,12 @@ return {
           width = 120,
         },
       },
+
+      formatters = {
+        file = {
+          truncate = 99,
+        },
+      },
     },
     styles = {
       notification = {
@@ -38,8 +44,7 @@ return {
       "<localleader>f",
       function()
         Snacks.picker.files({
-          -- Snacks picker respects .gitignore by default
-          -- hidden files are not shown by default (similar to your telescope config)
+          hidden = true,
         })
       end,
       desc = "Lists [f]iles in your current working directory, respects .gitignore",
