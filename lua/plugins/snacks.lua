@@ -10,7 +10,11 @@ return {
           width = 120,
         },
       },
-
+      win = {
+        preview = { -- the bottom preview
+          wo = { wrap = true, linebreak = true, breakindent = true },
+        },
+      },
       formatters = {
         file = {
           truncate = 99,
