@@ -15,11 +15,12 @@ return {
       sections = {
         {
           section = "terminal",
-          cmd = "chafa ~/.config/nvim/walls/ghost.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1",
-          height = 17,
+          cmd = "chafa ~/.config/nvim/walls/ghost.jpg --format symbols --symbols vhalf --size 60x16 --stretch; sleep .1",
+          height = 16,
           padding = 1,
         },
-        { section = "keys", gap = 1, padding = 1 },
+        { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
+        { icon = " ", title = "Recent Files", cwd = true, section = "recent_files", indent = 2, padding = 1 },
         { section = "startup" },
       },
     },
