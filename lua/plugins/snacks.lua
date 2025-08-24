@@ -70,13 +70,6 @@ return {
       desc = "Lists open buffers",
     },
     {
-      "<localleader>t",
-      function()
-        Snacks.picker.help()
-      end,
-      desc = "Lists available help tags and opens a new window with the relevant help info on <cr>",
-    },
-    {
       "<localleader>;",
       function()
         Snacks.picker.resume()
