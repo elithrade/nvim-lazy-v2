@@ -7,7 +7,7 @@ return {
         preset = "ivy",
       },
       win = {
-        preview = { -- the bottom preview
+        preview = { -- preview window options
           wo = { wrap = true, linebreak = true, breakindent = true },
         },
       },
@@ -61,7 +61,21 @@ return {
     {
       "<localleader><localleader>",
       function()
-        Snacks.picker.buffers()
+        Snacks.picker.buffers({
+          on_show = function()
+            -- Open with normal mode
+            vim.cmd.stopinsert()
+          end,
+          sort_lastused = true,
+          win = {
+            -- Open with normal mode
+            input = {
+              keys = {
+                ["dd"] = "bufdelete",
+              },
+            },
+          },
+        })
       end,
       desc = "Lists open buffers",
     },
