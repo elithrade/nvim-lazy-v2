@@ -4,11 +4,7 @@ return {
   opts = {
     picker = {
       layout = {
-        preset = "vertical",
-        layout = {
-          height = 0.8,
-          width = 120,
-        },
+        preset = "ivy",
       },
       win = {
         preview = { -- the bottom preview
