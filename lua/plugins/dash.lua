@@ -15,8 +15,8 @@ return {
       sections = {
         {
           section = "terminal",
-          cmd = "chafa ~/.config/nvim/walls/ghost.jpg --format symbols --symbols vhalf --size 60x16 --stretch; sleep .1",
-          height = 16,
+          cmd = "chafa ~/.config/nvim/walls/flower.jpg --format symbols --symbols vhalf --size 60x15 --stretch; sleep .1",
+          height = 15,
           padding = 1,
         },
         { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
