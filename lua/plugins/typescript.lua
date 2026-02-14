@@ -2,10 +2,13 @@ return {
   {
     "neovim/nvim-lspconfig",
     ---@class LspInitOptions
-    opts = {
-      ---@diagnostic disable-next-line:missing-fields
-      servers = {
+    opts = function(plugin, opts)
+      local util = require("lspconfig.util")
+
+      -- define your custom servers
+      local my_servers = {
         vtsls = {
+          root_dir = util.root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".git"),
           init_options = {
             maxTsServerMemory = 4096,
           },
@@ -18,6 +21,7 @@ return {
           end,
         },
         eslint = {
+          root_dir = util.root_pattern("eslint.config.js", ".eslintrc.json", ".eslintrc.js", "package.json", ".git"),
           init_options = {
             -- Add any eslint-specific init options here
           },
@@ -32,7 +36,10 @@ return {
             })
           end,
         },
-      },
-    },
+      }
+
+      -- merge the servers returned by the function with the default servers
+      vim.tbl_deep_extend("force", opts.servers, my_servers)
+    end,
   },
 }
