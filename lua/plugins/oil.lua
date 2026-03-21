@@ -12,7 +12,7 @@ return {
       keymaps = {
         ["<ESC>"] = "actions.close",
         ["q"] = "actions.close",
-        ["C-h>"] = false,
+        ["<C-h>"] = false,
         ["M-h"] = "actions.select_split",
       },
     })
