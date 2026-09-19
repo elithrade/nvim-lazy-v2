@@ -3,23 +3,9 @@ return {
   {
     "seblyng/roslyn.nvim",
     ft = "cs",
-    config = function()
-      require("roslyn").setup({
-        -- Configuration options go here if needed
-      })
-      -- Targeted fix for noice.nvim compatibility - only affect Roslyn
-      local original_progress_handler = vim.lsp.handlers["$/progress"]
-      vim.lsp.handlers["$/progress"] = function(err, result, ctx, config)
-        -- Check if this is from Roslyn client
-        local client = vim.lsp.get_client_by_id(ctx.client_id)
-        if client and client.name == "roslyn" then
-          -- Ignore progress notifications from Roslyn to prevent noice.nvim errors
-          return
-        end
-        -- For all other LSP servers, use the original handler
-        return original_progress_handler(err, result, ctx, config)
-      end
-    end,
+    opts = {
+      -- Configuration options go here if needed
+    },
   },
 
   -- Disable the default omnisharp LSP
@@ -86,8 +72,24 @@ return {
     },
     opts = {
       adapters = {
-        ["neotest-vstest"] = {},
+        -- dap_settings.type must match a registered dap adapter name;
+        -- "coreclr" is set up by mason-nvim-dap for the netcoredbg debugger.
+        ["neotest-vstest"] = {
+          dap_settings = {
+            type = "coreclr",
+          },
+        },
       },
     },
+  },
+
+  -- Wire up netcoredbg for C# debugging via nvim-dap
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "netcoredbg" })
+      return opts
+    end,
   },
 }
