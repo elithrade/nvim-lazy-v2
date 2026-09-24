@@ -1,3 +1,9 @@
+-- The roslyn-language-server apphost resolves .NET via hostfxr, which ignores
+-- $PATH/asdf shims and falls back to the system-wide install (e.g. /usr/lib/dotnet).
+-- Set DOTNET_ROOT process-wide (scoped to nvim only) so it picks up the
+-- asdf-managed .NET 10 runtime regardless of plugin load order.
+vim.env.DOTNET_ROOT = vim.fn.expand("~/.asdf/installs/dotnet-core/10.0.400")
+
 return {
   -- Roslyn.nvim for C# LSP
   {
@@ -50,15 +56,9 @@ return {
   {
     "mason-org/mason.nvim",
     opts = function(_, opts)
-      -- Add custom registries for roslyn
-      opts.registries = {
-        "github:mason-org/mason-registry",
-        "github:Crashdummyy/mason-registry", -- Required for roslyn
-      }
-
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
-        "roslyn", -- Roslyn language server
+        "roslyn-language-server", -- Roslyn language server (official mason-registry, nuget-based)
         "netcoredbg", -- C# debugger
       })
 
