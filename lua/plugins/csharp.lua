@@ -20,6 +20,7 @@ return {
     opts = {
       servers = {
         omnisharp = false,
+        roslyn_ls = false,
       },
     },
   },
