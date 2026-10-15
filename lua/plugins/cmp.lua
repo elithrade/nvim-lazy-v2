@@ -1,4 +1,10 @@
 return {
+  -- Disable the community snippet collection so only LSP/path/buffer
+  -- completions are suggested (no more unwanted snippet popups like method_async).
+  {
+    "rafamadriz/friendly-snippets",
+    enabled = false,
+  },
   {
     "saghen/blink.cmp",
     optional = true,
