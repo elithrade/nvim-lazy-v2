@@ -11,6 +11,9 @@ return {
       })
 
       opts.presets.lsp_doc_border = true
+
+      opts.lsp = opts.lsp or {}
+      opts.lsp.signature = { auto_open = { enabled = false } }
     end,
   },
   {
