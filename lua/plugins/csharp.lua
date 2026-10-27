@@ -2,7 +2,11 @@
 -- $PATH/asdf shims and falls back to the system-wide install (e.g. /usr/lib/dotnet).
 -- Set DOTNET_ROOT process-wide (scoped to nvim only) so it picks up the
 -- asdf-managed .NET 10 runtime regardless of plugin load order.
-vim.env.DOTNET_ROOT = vim.fn.expand("~/.asdf/installs/dotnet-core/10.0.400")
+-- Only on machines that use asdf (work), elsewhere the system-wide install is the right one.
+local asdf_dotnet = vim.fn.expand("~/.asdf/installs/dotnet-core/10.0.400")
+if vim.fn.isdirectory(asdf_dotnet) == 1 then
+  vim.env.DOTNET_ROOT = asdf_dotnet
+end
 
 return {
   -- Roslyn.nvim for C# LSP
