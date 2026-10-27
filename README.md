@@ -1,101 +1,115 @@
-# 💤 nvim-lazy
+# 💤 nvim-lazy-v2
 
-This version of config started from LazyVim v14.x, and the main change is to replace `snacks` with `telescope` for searching files.
-
-My Neovim config files started from [LazyVim](https://github.com/LazyVim/LazyVim).
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
-Press Space + L, and U to update plugins.
+My Neovim config, built on [LazyVim](https://github.com/LazyVim/LazyVim) with [snacks.nvim](https://github.com/folke/snacks.nvim) as the picker, [oil.nvim](https://github.com/stevearc/oil.nvim) for file editing, and C# / TypeScript tooling.
 
 ## Installation
 
-### Clone the repo
+### WSL / Linux (recommended)
 
-For Windows
-`git clone git@github.com:elithrade/nvim-lazy-v2.git $env:LOCALAPPDATA\nvim`
+Installed automatically by [.dotfiles-wsl-v2](https://github.com/elithrade/.dotfiles-wsl-v2): its `./install` clones this repo to `~/.config/nvim`, installs Neovim (via bob) and every dependency below, then runs headless Neovim to install the plugins, Mason tools and treesitter parsers. The first `nvim` launch is ready to use.
 
-For Linux
-`git clone git@github.com:elithrade/nvim-lazy-v2.git ~/.config/nvim`
+Manual install:
 
-Below you can find OS specific install instructions for Neovim and dependencies.
-
-### Windows Installation
-
-<details><summary>Windows with Microsoft C++ Build Tools and CMake</summary>
-Installation may require installing build tools and updating the run command for `telescope-fzf-native`
-
-See `telescope-fzf-native` documentation for [more details](https://github.com/nvim-telescope/telescope-fzf-native.nvim#installation)
-
-This requires:
-
-- Install CMake and the Microsoft C++ Build Tools on Windows
-
-```lua
-{'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+```sh
+git clone https://github.com/elithrade/nvim-lazy-v2.git ~/.config/nvim
+git -C ~/.config/nvim remote set-url --push origin git@github.com:elithrade/nvim-lazy-v2.git
+nvim   # installs plugins on first launch, Mason tools install in the background
 ```
 
-</details>
-<details><summary>Windows with gcc/make using chocolatey</summary>
-Alternatively, one can install gcc and make which don't require changing the config,
-the easiest way is to use choco:
+### Windows
 
-1. install [chocolatey](https://chocolatey.org/install)
-   either follow the instructions on the page or use winget,
-   run in cmd as **admin**:
-
-```
-winget install --accept-source-agreements chocolatey.chocolatey
+```powershell
+git clone https://github.com/elithrade/nvim-lazy-v2.git $env:LOCALAPPDATA\nvim
 ```
 
-2. install all requirements using choco, exit previous cmd and
-   open a new one so that choco path is set, and run in cmd as **admin**:
+Install the dependencies with [chocolatey](https://chocolatey.org/install), in an **admin** shell:
 
 ```
-choco install -y neovim git ripgrep wget fd unzip gzip mingw make
+choco install -y neovim git ripgrep wget fd unzip gzip mingw make nodejs
 ```
 
-</details>
-<details><summary>WSL (Windows Subsystem for Linux)</summary>
-
-```
-wsl --install
-wsl
-sudo add-apt-repository ppa:neovim-ppa/unstable -y
-sudo apt update
-sudo apt install make gcc ripgrep unzip neovim
-```
-
-</details>
-
-### Linux Installation
-
-<details><summary>Ubuntu Install Steps</summary>
-
-```
-sudo add-apt-repository ppa:neovim-ppa/unstable -y
-sudo apt update
-sudo apt install make gcc ripgrep unzip neovim
-```
-
-</details>
+`options.lua` switches the shell to `pwsh` on Windows.
 
 ### Dependencies
 
-- [ripgrep](https://github.com/BurntSushi/ripgrep), is required for live_grep and grep_string and is the first priority for find_files.
-- On Linux, `fd` might cause issues with telescope-file-browser, I removed `fd` from my WSL2 at work.
+| Tool | Used for |
+|---|---|
+| Neovim 0.11+ | |
+| git, gcc, make | lazy.nvim, building plugins |
+| ripgrep, fd | snacks picker file search and grep |
+| Node.js + npm | Mason installs most LSP servers, prettier, eslint through npm |
+| .NET 10 SDK | roslyn language server, csharpier |
+| csharpier | C# formatting, installed as a global dotnet tool: `dotnet tool install -g csharpier` (must be on `PATH`, e.g. `~/.dotnet/tools`) |
+| chafa | dashboard image (`walls/flower.jpg`) |
+| tree-sitter CLI | building treesitter parsers, installed by Mason |
 
-## Custom key maps
+Check for anything missing with `:checkhealth`.
 
-See comment [here](./lua/config/keymaps.lua)
+## Updating
 
-## Custom tweaks
+- Plugins: `<leader>l` then `U` (or `:Lazy update`), then commit and push `lazy-lock.json` so other machines install the same versions
+- Mason tools: `:Mason`, then `U`
+- LazyVim extras: `:LazyExtras` (saved to `lazyvim.json`)
 
-- Custom colorscheme defined in [colorscheme.lua](./lua/plugins/colorscheme.lua)
-- Add [telescope-file-browser.nvim](https://github.com/nvim-telescope/telescope-file-browser.nvim) extension and [remapped default keys](./lua/plugins/editor.lua). Most telescope-file-browser keys starts with `;`, `sf` to open telescope-file-browser.
-- Suppress "No information available" notification in [noice.nvim](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://github.com/folke/noice.nvim&ved=2ahUKEwiYmd_s3I6FAxX_s1YBHTSyDqAQFnoECAYQAQ&usg=AOvVaw1sogSR1BTc2Hp5hZ7TNBpv).
-- Add a border to hover over documentation when press Shift + K.
-- Change default notification timeout to 10 seconds.
-- Disabled [flash.nvim](https://github.com/folke/flash.nvim)
-- Disabled "o" and "<C-o>>" mapping to launch file default system application.
-- Disabled [nvim-neo-tree/neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) plugin.
-- Added a [scroll animation](https://github.com/echasnovski/mini.animate) for fun.
-- Added few [coding](./lua/plugins/coding.lua) related plugins.
+## Language support
+
+Enabled extras (`lazyvim.json`): TypeScript, Tailwind, JSON, Markdown, Prettier, ESLint, DAP, neotest, mini-surround, smear-cursor.
+
+C# ([csharp.lua](./lua/plugins/csharp.lua)):
+
+- LSP: [roslyn.nvim](https://github.com/seblyng/roslyn.nvim) with `roslyn-language-server` from Mason, OmniSharp is disabled
+- Formatting: csharpier through conform.nvim
+- Debugging: netcoredbg (Mason) through nvim-dap
+- Tests: [neotest-vstest](https://github.com/nsidorenco/neotest-vstest), debugging tests uses netcoredbg
+- .NET location: on machines where .NET is managed by asdf (work), `DOTNET_ROOT` is set to the asdf install so roslyn finds it. Elsewhere the system-wide install (e.g. `/usr/lib/dotnet`) is used. Update the version in `csharp.lua` when the asdf .NET version changes.
+
+TypeScript uses `vtsls`, `ts_ls` is disabled. Tests use [neotest-vitest](https://github.com/marilari88/neotest-vitest).
+
+## Key maps
+
+Leader is `Space`, local leader is `\` (LazyVim defaults). All LazyVim [default key maps](https://www.lazyvim.org/keymaps) apply, plus:
+
+### Pickers ([snacks.lua](./lua/plugins/snacks.lua))
+
+| Keys | Action |
+|---|---|
+| `\f` | Find files, including hidden |
+| `\r` | Live grep |
+| `\\` | Open buffers (starts in normal mode, `dd` deletes a buffer) |
+| `\;` | Resume last picker |
+| `\e` | Diagnostics |
+| `\s` | LSP symbols |
+| `\h` | Help tags |
+| `\p` | Find a plugin file |
+| `<leader>e` | File explorer at the current file's folder (`-` goes up) |
+| `<leader>o` | [oil.nvim](./lua/plugins/oil.lua), edit the file system like a buffer (`q` / `Esc` closes) |
+
+### Editing and navigation ([keymaps.lua](./lua/config/keymaps.lua))
+
+| Keys | Action |
+|---|---|
+| `+` / `-` | Increment / decrement number |
+| `Ctrl+d` / `Ctrl+u`, `n` / `N` | Scroll / search, keeping the cursor centred |
+| `dW` | Delete the word backwards |
+| `Tab` / `Shift+Tab` | Next / previous buffer |
+| `Ctrl+h/j/k/l` | Move between Neovim splits and tmux panes ([vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator)) |
+
+### Debugging
+
+| Keys | Action |
+|---|---|
+| `F8` | Toggle breakpoint |
+| `F5` / `F9` | Continue |
+| `F10` / `Shift+F10` | Step over / step into |
+| `F12` | Hover variable |
+
+## Other tweaks
+
+- Colorscheme: [catppuccin](./lua/plugins/colorscheme.lua)
+- Dashboard with a chafa-rendered image ([dash.lua](./lua/plugins/dash.lua)), other images in `walls/`
+- Lualine shows only the first letter of the mode, no section separators
+- LSP: no inline diagnostics (virtual text) and no inlay hints ([coding.lua](./lua/plugins/coding.lua))
+- noice.nvim: hover docs have a border, the signature popup doesn't open automatically, "No information available" is hidden ([ui.lua](./lua/plugins/ui.lua))
+- Completion: friendly-snippets disabled, emoji source added to blink.cmp ([cmp.lua](./lua/plugins/cmp.lua))
+- [flash.nvim](https://github.com/folke/flash.nvim) disabled
+- Colour column at 80
