@@ -3,9 +3,13 @@
 -- Set DOTNET_ROOT process-wide (scoped to nvim only) so it picks up the
 -- asdf-managed .NET 10 runtime regardless of plugin load order.
 -- Only on machines that use asdf (work), elsewhere the system-wide install is the right one.
-local asdf_dotnet = vim.fn.expand("~/.asdf/installs/dotnet-core/10.0.400")
-if vim.fn.isdirectory(asdf_dotnet) == 1 then
-  vim.env.DOTNET_ROOT = asdf_dotnet
+-- Picks the newest installed 10.x SDK so upgrading asdf doesn't silently fall back to the system install.
+local asdf_dotnet = vim.fn.glob("~/.asdf/installs/dotnet-core/10.*", false, true)
+if #asdf_dotnet > 0 then
+  table.sort(asdf_dotnet, function(a, b)
+    return vim.version.lt(vim.fs.basename(a), vim.fs.basename(b))
+  end)
+  vim.env.DOTNET_ROOT = asdf_dotnet[#asdf_dotnet]
 end
 
 return {
@@ -29,21 +33,12 @@ return {
     },
   },
 
-  -- Configure conform.nvim for csharpier formatting
+  -- Configure conform.nvim for csharpier formatting (uses conform's built-in csharpier formatter)
   {
     "stevearc/conform.nvim",
     opts = function(_, opts)
       opts.formatters_by_ft = opts.formatters_by_ft or {}
       opts.formatters_by_ft.cs = { "csharpier" }
-
-      opts.formatters = opts.formatters or {}
-      opts.formatters.csharpier = {
-        command = "csharpier",
-        args = { "format", "--write-stdout" },
-        stdin = true,
-        cwd = require("conform.util").root_file({ ".csproj", ".sln", ".editorconfig" }),
-      }
-
       return opts
     end,
   },

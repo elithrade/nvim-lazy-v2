@@ -13,7 +13,7 @@ return {
         ["<ESC>"] = "actions.close",
         ["q"] = "actions.close",
         ["<C-h>"] = false,
-        ["M-h"] = "actions.select_split",
+        ["<M-h>"] = "actions.select_split",
       },
     })
   end,

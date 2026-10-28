@@ -2,6 +2,10 @@ return {
   "folke/snacks.nvim",
   lazy = false,
   opts = {
+    -- Let oil.nvim handle directory buffers (e.g. `nvim .`)
+    explorer = {
+      replace_netrw = false,
+    },
     picker = {
       layout = {
         preset = "vertical",
@@ -54,7 +58,7 @@ return {
       "<localleader>r",
       function()
         Snacks.picker.grep({
-          -- Snacks picker includes hidden files in grep by default
+          hidden = true,
         })
       end,
       desc = "Search for a string in your current working directory and get results live as you type, respects .gitignore",

@@ -1,3 +1,20 @@
+local sections = {
+  { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
+  { icon = " ", title = "Recent Files", cwd = true, section = "recent_files", indent = 2, padding = 1 },
+  { section = "startup" },
+}
+
+-- Only show the wallpaper header when chafa is available
+if vim.fn.executable("chafa") == 1 then
+  local wall = vim.fn.stdpath("config") .. "/walls/flower.jpg"
+  table.insert(sections, 1, {
+    section = "terminal",
+    cmd = "chafa " .. vim.fn.shellescape(wall) .. " --format symbols --symbols vhalf --size 60x15 --stretch; sleep .1",
+    height = 15,
+    padding = 1,
+  })
+end
+
 return {
   "folke/snacks.nvim",
   opts = {
@@ -12,17 +29,7 @@ return {
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
       },
-      sections = {
-        {
-          section = "terminal",
-          cmd = "chafa ~/.config/nvim/walls/flower.jpg --format symbols --symbols vhalf --size 60x15 --stretch; sleep .1",
-          height = 15,
-          padding = 1,
-        },
-        { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
-        { icon = " ", title = "Recent Files", cwd = true, section = "recent_files", indent = 2, padding = 1 },
-        { section = "startup" },
-      },
+      sections = sections,
     },
   },
 }

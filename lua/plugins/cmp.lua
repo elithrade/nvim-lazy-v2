@@ -32,14 +32,10 @@ return {
   {
     "allaman/emoji.nvim",
     version = "1.0.0",
-    dependencies = {
-      "saghen/blink.cmp", -- make sure blink is loaded first
-    },
+    -- Loaded by blink.cmp as a dependency
+    lazy = true,
     opts = {
       enable_cmp_integration = true, -- enable blink.cmp source
     },
-    config = function(_, opts)
-      require("emoji").setup(opts)
-    end,
   },
 }
