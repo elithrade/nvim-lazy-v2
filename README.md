@@ -109,7 +109,7 @@ Opening a directory (e.g. `nvim .` or `:e src/`) uses oil, not the snacks explor
 - Colorscheme: [catppuccin](./lua/plugins/colorscheme.lua)
 - Dashboard with a chafa-rendered image when chafa is installed ([dash.lua](./lua/plugins/dash.lua)), other images in `walls/`
 - Lualine shows only the first letter of the mode, no section separators
-- LSP: no inline diagnostics (virtual text) and no inlay hints ([coding.lua](./lua/plugins/coding.lua))
+- LSP: no inline diagnostics (virtual text) and no inlay hints ([lsp.lua](./lua/plugins/lsp.lua))
 - noice.nvim: hover docs have a border, the signature popup doesn't open automatically, "No information available" is hidden ([ui.lua](./lua/plugins/ui.lua))
 - Completion: friendly-snippets disabled, emoji source added to blink.cmp (loaded on first use) ([cmp.lua](./lua/plugins/cmp.lua))
 - [flash.nvim](https://github.com/folke/flash.nvim) disabled

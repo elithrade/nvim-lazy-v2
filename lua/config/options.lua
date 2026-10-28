@@ -3,11 +3,11 @@
 -- Add any additional options here
 
 -- Set default shell to pwsh if running Windows
-if vim.fn.has("win64") == 1 then
+if vim.fn.has("win32") == 1 then
   vim.opt.shell = "pwsh"
   -- https://github.com/neovim/neovim/issues/13893
   vim.opt.shellcmdflag = "-nologo -noprofile -ExecutionPolicy RemoteSigned -command"
   vim.opt.shellxquote = ""
 end
 
-vim.api.nvim_set_option_value("colorcolumn", "80", {})
+vim.opt.colorcolumn = "80"

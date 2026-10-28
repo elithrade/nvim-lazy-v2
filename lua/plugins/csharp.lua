@@ -59,7 +59,7 @@ return {
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         "roslyn-language-server", -- Roslyn language server (official mason-registry, nuget-based)
-        "netcoredbg", -- C# debugger
+        "netcoredbg", -- C# debugger, registered as the "coreclr" dap adapter by mason-nvim-dap
       })
 
       return opts
@@ -75,21 +75,13 @@ return {
         -- dap_settings.type must match a registered dap adapter name;
         -- "coreclr" is set up by mason-nvim-dap for the netcoredbg debugger.
         ["neotest-vstest"] = {
+          -- Only look for a .sln/.slnx upward from the opened folder, never recursively through it.
+          broad_recursive_discovery = false,
           dap_settings = {
             type = "coreclr",
           },
         },
       },
     },
-  },
-
-  -- Wire up netcoredbg for C# debugging via nvim-dap
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "netcoredbg" })
-      return opts
-    end,
   },
 }

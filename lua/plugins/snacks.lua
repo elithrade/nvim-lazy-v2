@@ -1,6 +1,5 @@
 return {
   "folke/snacks.nvim",
-  lazy = false,
   opts = {
     -- Let oil.nvim handle directory buffers (e.g. `nvim .`)
     explorer = {
@@ -67,19 +66,9 @@ return {
       "<localleader><localleader>",
       function()
         Snacks.picker.buffers({
-          on_show = function()
-            -- Open with normal mode
-            vim.cmd.stopinsert()
-          end,
+          -- Open in the list (normal mode), where `dd` deletes a buffer
+          focus = "list",
           sort_lastused = true,
-          win = {
-            -- Open with normal mode
-            input = {
-              keys = {
-                ["dd"] = "bufdelete",
-              },
-            },
-          },
         })
       end,
       desc = "Lists open buffers",
