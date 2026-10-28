@@ -53,7 +53,7 @@ Check for anything missing with `:checkhealth`.
 
 ## Language support
 
-Enabled extras (`lazyvim.json`): TypeScript, JSON, Markdown, Prettier, ESLint, DAP, neotest, mini-surround, smear-cursor.
+Enabled extras (`lazyvim.json`): TypeScript, JSON, Markdown, Prettier, ESLint, DAP, neotest, mini-surround, smear-cursor, treesitter-context.
 
 C# ([csharp.lua](./lua/plugins/csharp.lua)):
 
